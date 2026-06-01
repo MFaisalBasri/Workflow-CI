@@ -66,9 +66,14 @@ jobs:
       - name: Prepare Model Artifact
         run: |
           mkdir -p deploy
-          cp -r mlruns/0/$RUN_ID/artifacts/model deploy/model
-
-          echo "Model copied:"
+      
+          MODEL_PATH=$(find mlruns -type d -path "*/artifacts/model" | head -n 1)
+      
+          echo "Found model:"
+          echo $MODEL_PATH
+      
+          cp -r "$MODEL_PATH" deploy/model
+      
           ls -R deploy
           
       # Build Docker Model
