@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 # Experiment
 mlflow.set_experiment("Prediksi Keterlambatan Pengiriman")
 
-# Load dataset hasil preprocessing
+# Load dataset
 data = pd.read_csv("Dataset_olist_preprocessing.csv")
 
 # Split dataset
@@ -22,28 +22,31 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# Contoh input untuk model signature
+# Input example
 input_example = X_train.iloc[:5]
 
 # Aktifkan autolog
 mlflow.autolog()
 
-with mlflow.start_run():
+# TANPA mlflow.start_run()
+model = RandomForestClassifier(
+    n_estimators=505,
+    max_depth=37,
+    random_state=42
+)
 
-    model = RandomForestClassifier(
-        n_estimators=505,
-        max_depth=37,
-        random_state=42
-    )
+model.fit(X_train, y_train)
 
-    model.fit(X_train, y_train)
+accuracy = model.score(X_test, y_test)
 
-    accuracy = model.score(X_test, y_test)
+print(f"Accuracy: {accuracy}")
 
-    print(f"Accuracy: {accuracy}")
+# Log metric manual (opsional)
+mlflow.log_metric("accuracy", accuracy)
 
-    mlflow.sklearn.log_model(
-        sk_model=model,
-        artifact_path="model",
-        input_example=input_example
-    )
+# Log model
+mlflow.sklearn.log_model(
+    sk_model=model,
+    artifact_path="model",
+    input_example=input_example
+)
