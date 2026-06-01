@@ -52,6 +52,17 @@ jobs:
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
           echo "Latest run_id: $RUN_ID"
 
+      - name: Debug MLflow Files
+        run: |
+          echo "=== RUN_ID ==="
+          echo $RUN_ID
+      
+          echo "=== MLRUNS ==="
+          find mlruns -type f | head -100
+      
+          echo "=== DIRECTORY STRUCTURE ==="
+          find mlruns -type d | head -100
+
       - name: Prepare Model Artifact
         run: |
           mkdir -p deploy
