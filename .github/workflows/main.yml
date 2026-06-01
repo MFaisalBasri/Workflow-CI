@@ -79,7 +79,7 @@ jobs:
       # Build Docker Model
       - name: Build Docker Image
         run: |
-          docker build -t cc -f MLProject/Dockerfile .
+          docker build -t model-estimasi -f MLProject/Dockerfile .
 
       # Login to Docker Hub
       - name: Log in to Docker Hub
