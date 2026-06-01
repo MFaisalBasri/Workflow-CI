@@ -1,7 +1,7 @@
 name: prediksi_keterlambatan_pengiriman
 
-python_env: conda.yaml
+conda_env: conda.yaml
 
 entry_points:
-  train:
-    command: "python modeling.py"
+  main:
+    command: "python modelling.py"
