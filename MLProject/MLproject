@@ -1,0 +1,7 @@
+name: prediksi_keterlambatan_pengiriman
+
+python_env: python_env.yaml
+
+entry_points:
+  train:
+    command: "python modeling.py"
